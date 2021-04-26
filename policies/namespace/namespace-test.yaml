@@ -1,0 +1,29 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-test-namespace
+  annotations:
+    policy.open-cluster-management.io/standards: Tests POC
+    policy.open-cluster-management.io/categories: Configurations
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-test-namespace
+      spec:
+        remediationAction: inform
+        severity: high
+        object-templates:
+
+          - complianceType: musthave
+            objectDefinition:
+
+              apiVersion: v1
+              kind: Namespace
+              metadata:
+                name: namespace-test-from-acm
