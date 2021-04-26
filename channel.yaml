@@ -9,6 +9,6 @@ metadata:
     # apps.open-cluster-management.io/webhook-secret=<the_secret_name>
 spec:
     type: Git
-    pathname: https://gitlab.com/marouim/acm-poc.git
-    secretRef:
-      name: acm-poc-git-secret
+    pathname: https://github.com/marouim/redhat-acm-poc.git
+#    secretRef:
+#      name: acm-poc-git-secret
