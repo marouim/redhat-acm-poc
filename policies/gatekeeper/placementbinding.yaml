@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-gatekeeper-check-label
+  namespace: acm-poc1
+
+placementRef:
+  name: acm-poc-projet-a
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+
+subjects:
+- name: policy-gatekeeper-check-label-template
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: policy-gatekeeper-check-label-constraint
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: policy-gatekeeper-audit-label-constraint
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: acm-poc-create-role-projet-a-dev-musthave
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: acm-poc-create-role-projet-a-dev
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

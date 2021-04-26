@@ -1,0 +1,14 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: acm-poc-channel
+  namespace: acm-poc-channel
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: High
+    apps.open-cluster-management.io/webhook-enabled: "true"
+    # apps.open-cluster-management.io/webhook-secret=<the_secret_name>
+spec:
+    type: Git
+    pathname: https://gitlab.com/marouim/acm-poc.git
+    secretRef:
+      name: acm-poc-git-secret

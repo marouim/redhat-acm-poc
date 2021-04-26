@@ -1,0 +1,98 @@
+# 
+# Exemple de policy pour configurer des Roles
+# Mode mustonlyhave
+#      Ce mode s'assure que l'objet a strictement les valeures définies dans la policy. 
+#
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: acm-poc-create-role-projet-a-dev
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: AC Access Control
+    policy.open-cluster-management.io/controls: AC-3 Access Enforcement
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: role-projet-a-dev
+        spec:
+          remediationAction: inform # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
+          severity: high
+          namespaceSelector:
+            include: ["acm-poc-projet-a"]
+          object-templates:
+            - complianceType: mustonlyhave # role definition should exact match
+              objectDefinition:
+
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: Role
+                metadata:
+                  name: projet-a-dev
+                rules:
+                - apiGroups:
+                  - ""
+                  resources:
+                  - secrets
+                  verbs:
+                  - list
+                - apiGroups:
+                  - ""
+                  resources:
+                  - namespaces
+                  verbs:
+                  - get
+                - apiGroups:
+                  - ""
+                  - project.openshift.io
+                  resources:
+                  - projects
+                  verbs:
+                  - get
+                - apiGroups:
+                  - ""
+                  resources:
+                  - pods
+                  verbs:
+                  - get
+                  - list
+                  - watch
+                - apiGroups:
+                  - apps
+                  resources:
+                  - controllerrevisions
+                  - daemonsets
+                  - daemonsets/status
+                  - deployments
+                  - deployments/scale
+                  - deployments/status
+                  - replicasets
+                  - replicasets/scale
+                  - replicasets/status
+                  - statefulsets
+                  - statefulsets/scale
+                  - statefulsets/status
+                  verbs:
+                  - get
+                  - list
+                  - watch
+                - apiGroups:
+                  - ""
+                  resources:
+                  - bindings
+                  - events
+                  - limitranges
+                  - namespaces/status
+                  - pods/log
+                  - pods/status
+                  - replicationcontrollers/status
+                  - resourcequotas
+                  - resourcequotas/status
+                  verbs:
+                  - get
+                  - list
+                  - watch

@@ -1,0 +1,13 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: acm-poc-projet-a
+  namespace: acm-poc1
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: environnement, operator: In, values: ["dev"]}
+      - {key: projet, operator: In, values: ["xyz"]}
