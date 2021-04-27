@@ -21,10 +21,10 @@ subjects:
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 
-- name: policy-gatekeeper-check-service-type-constraint
+- name: policy-gk-check-service-type-constraint
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 
-- name: policy-gatekeeper-check-service-type-template
+- name: policy-gk-check-service-type-template
   kind: Policy
   apiGroup: policy.open-cluster-management.io
