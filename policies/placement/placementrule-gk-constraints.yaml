@@ -1,12 +1,13 @@
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-acm-poc1
+  name: placement-acm-poc-gk-constraints
   namespace: acm-poc-policies
+
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: poc, operator: In, values: ["poc1"]}
+      - {key: acm-poc-gk-constraints, operator: In, values: ["yes"]}

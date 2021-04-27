@@ -1,15 +1,19 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-namespace-test
+  name: binding-acm-poc-rbac
   namespace: acm-poc-policies
 
 placementRef:
-  name: placement-acm-poc1
+  name: placement-acm-poc-rbac
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 
 subjects:
-- name: policy-test-namespace
+- name: acm-poc-role-projet-a-dev-musthave
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: acm-poc-role-projet-a-dev-mustonlyhave
   kind: Policy
   apiGroup: policy.open-cluster-management.io

@@ -4,6 +4,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/git-branch: master
     apps.open-cluster-management.io/git-path: /policies
+    apps.open-cluster-management.io/reconcile-rate: high
   name: poc1
   namespace: acm-poc1
 spec:

@@ -1,13 +1,13 @@
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: acm-poc-projet-a
-  namespace: acm-poc1
+  name: placement-acm-poc-rbac
+  namespace: acm-poc-policies
+
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: environnement, operator: In, values: ["dev"]}
-      - {key: projet, operator: In, values: ["xyz"]}
+      - {key: acm-poc-rbac, operator: In, values: ["yes"]}

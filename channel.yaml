@@ -4,7 +4,7 @@ metadata:
   name: acm-poc-channel
   namespace: acm-poc-channel
   annotations:
-    apps.open-cluster-management.io/reconcile-rate: High
+    apps.open-cluster-management.io/reconcile-rate: high
     apps.open-cluster-management.io/webhook-enabled: "true"
     # apps.open-cluster-management.io/webhook-secret=<the_secret_name>
 spec:
@@ -12,3 +12,4 @@ spec:
     pathname: https://github.com/marouim/redhat-acm-poc.git
 #    secretRef:
 #      name: acm-poc-git-secret
+#   insecureSkipVerify: true

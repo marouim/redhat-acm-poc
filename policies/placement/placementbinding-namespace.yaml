@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-acm-poc-namespace
+  namespace: acm-poc-policies
+
+placementRef:
+  name: placement-acm-poc-namespace
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+
+subjects:
+- name: policy-acm-poc-namespace
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

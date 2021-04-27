@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-test-namespace
+  name: policy-acm-poc-namespace
   annotations:
     policy.open-cluster-management.io/standards: Tests POC
     policy.open-cluster-management.io/categories: Configurations
@@ -14,7 +14,7 @@ spec:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: policy-test-namespace
+        name: policy-acm-poc-namespace
       spec:
         remediationAction: inform
         severity: high

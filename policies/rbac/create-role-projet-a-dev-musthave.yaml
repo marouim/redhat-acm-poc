@@ -7,7 +7,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: acm-poc-create-role-projet-a-dev-musthave
+  name: acm-poc-role-projet-a-dev-musthave
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: AC Access Control

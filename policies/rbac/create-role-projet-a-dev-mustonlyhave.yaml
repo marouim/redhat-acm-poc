@@ -6,7 +6,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: acm-poc-create-role-projet-a-dev
+  name: acm-poc-role-projet-a-dev-mustonlyhave
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: AC Access Control
@@ -19,7 +19,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: role-projet-a-dev
+          name: role-projet-a-dev-mustonlyhave
         spec:
           remediationAction: inform # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
           severity: high
