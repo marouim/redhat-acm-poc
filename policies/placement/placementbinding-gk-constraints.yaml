@@ -20,3 +20,11 @@ subjects:
 - name: policy-gatekeeper-audit-label-constraint
   kind: Policy
   apiGroup: policy.open-cluster-management.io
+
+- name: policy-gatekeeper-check-service-type-constraint
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+- name: policy-gatekeeper-check-service-type-template
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

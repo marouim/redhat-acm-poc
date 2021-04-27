@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-gatekeeper-check-service-type-template
+  annotations:
+    policy.open-cluster-management.io/standards: NIST-CSF
+    policy.open-cluster-management.io/categories: PR.IP Information Protection Processes and Procedures
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-gatekeeper-check-service-type-template
+      spec:
+        remediationAction: inform
+        severity: high
+        object-templates:
+
+          - complianceType: musthave
+            objectDefinition:
+
+              apiVersion: templates.gatekeeper.sh/v1beta1
+              kind: ConstraintTemplate
+              metadata:
+                name: k8scfservicetype
+              spec:
+                crd:
+                  spec:
+                    names:
+                      kind: K8sCFServiceType
+                    validation:
+                      openAPIV3Schema:
+                        properties:
+                          unallowedporttype:
+                            type: array
+                targets:
+                - rego: |
+                    package k8scfservicetype
+                    violation[{"msg": msg, "details": {"Unallowed service port detected ": unallowedporttype }}] {
+                      unallowedporttype := input.parameters.unallowedporttype
+                      input.review.kind.kind == "Service"
+                      input.review.object.spec.type == unallowedporttype[_]
+                      msg := sprintf("Unallowed service port detected: ", [unallowedporttype])
+                    }
+                  target: admission.k8s.gatekeeper.sh
