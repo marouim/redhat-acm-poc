@@ -12,3 +12,7 @@ subjects:
 - name: policy-np-frontend-backend
   kind: Policy
   apiGroup: policy.open-cluster-management.io
+
+- name: policy-np-multiple-ns
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
