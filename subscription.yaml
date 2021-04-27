@@ -6,7 +6,7 @@ metadata:
     apps.open-cluster-management.io/git-path: /policies
     apps.open-cluster-management.io/reconcile-rate: high
   name: poc1
-  namespace: acm-poc1
+  namespace: acm-poc-policies
 spec:
   channel: acm-poc-channel/acm-poc-channel
   placement:

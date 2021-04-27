@@ -2,7 +2,6 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-acm-poc-gk-operator
-  namespace: acm-poc-policies
 
 placementRef:
   name: placement-acm-poc-gk-operator
