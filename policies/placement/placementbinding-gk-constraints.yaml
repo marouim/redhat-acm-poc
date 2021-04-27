@@ -28,3 +28,7 @@ subjects:
 - name: policy-gk-check-service-type-template
   kind: Policy
   apiGroup: policy.open-cluster-management.io
+
+- name: policy-gk-audit-service-type
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
