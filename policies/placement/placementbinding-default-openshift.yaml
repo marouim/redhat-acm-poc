@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-default
+
+placementRef:
+  name: placement-default-openshift
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+
+subjects:
+- name: scc-restricted
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

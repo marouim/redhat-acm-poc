@@ -1,0 +1,65 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: restricted-scc
+  namespace: my-policies
+  annotations:
+    policy.open-cluster-management.io/categories: Securité infrastructure
+    policy.open-cluster-management.io/controls: Configurations
+    policy.open-cluster-management.io/standards: NIST-CSF
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: policy-restricted-scc
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                allowHostDirVolumePlugin: false
+                allowHostIPC: false
+                allowHostNetwork: false
+                allowHostPID: false
+                allowHostPorts: false
+                allowPrivilegedContainer: false
+                allowPrivilegeEscalation: true
+                apiVersion: security.openshift.io/v1
+                fsGroup:
+                  type: MustRunAs
+                groups:
+                  - 'system:authenticated'
+                kind: SecurityContextConstraints
+                metadata:
+                  name: restricted
+                  annotations:
+                    kubernetes.io/description: >-
+                      restricted denies access to all host features and requires
+                      pods to be run with a UID, and SELinux context that are
+                      allocated to the namespace.  This is the most restrictive
+                      SCC and it is used by default for authenticated users.
+                readOnlyRootFilesystem: false
+                requiredDropCapabilities:
+                  - KILL
+                  - MKNOD
+                  - SETUID
+                  - SETGID
+                runAsUser:
+                  type: MustRunAsRange
+                seLinuxContext:
+                  type: MustRunAs
+                supplementalGroups:
+                  type: RunAsAny
+                users: []
+                volumes:
+                  - configMap
+                  - downwardAPI
+                  - emptyDir
+                  - persistentVolumeClaim
+                  - projected
+                  - secret
+          remediationAction: inform
+          severity: high
+  remediationAction: enforce
