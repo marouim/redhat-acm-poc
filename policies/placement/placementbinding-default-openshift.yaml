@@ -9,6 +9,6 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
 
 subjects:
-- name: scc-restricted
+- name: restricted-scc
   kind: Policy
   apiGroup: policy.open-cluster-management.io
