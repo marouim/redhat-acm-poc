@@ -8,8 +8,8 @@ kind: Policy
 metadata:
   name: acm-poc-role-projet-a-dev-mustonlyhave
   annotations:
-    policy.open-cluster-management.io/standards: NIST SP 800-53
-    policy.open-cluster-management.io/categories: AC Access Control
+    policy.open-cluster-management.io/standards: Securité infrastructure
+    policy.open-cluster-management.io/categories: Contrôle des accès
     policy.open-cluster-management.io/controls: AC-3 Access Enforcement
 spec:
   remediationAction: inform

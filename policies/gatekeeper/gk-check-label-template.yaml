@@ -3,8 +3,8 @@ kind: Policy
 metadata:
   name: policy-gatekeeper-check-label-template
   annotations:
-    policy.open-cluster-management.io/standards: Mes propres standards
-    policy.open-cluster-management.io/categories: Environnements projet XYZ
+    policy.open-cluster-management.io/standards: Securité applications
+    policy.open-cluster-management.io/categories: Gatekeeper Templates
     policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
 spec:
   remediationAction: enforce

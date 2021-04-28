@@ -3,7 +3,7 @@ kind: Policy
 metadata:
   name: policy-acm-poc-namespace
   annotations:
-    policy.open-cluster-management.io/standards: Tests POC
+    policy.open-cluster-management.io/standards: Securité infrastructure
     policy.open-cluster-management.io/categories: Configurations
     policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
 spec:
