@@ -1,0 +1,28 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: namespace-my-policies
+  namespace: default
+  annotations:
+    policy.open-cluster-management.io/categories: Securité infrastructure
+    policy.open-cluster-management.io/controls: Configurations
+    policy.open-cluster-management.io/standards: NIST-CSF
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: namespace-my-policies
+        spec:
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: my-policies
+          remediationAction: inform
+          severity: low
