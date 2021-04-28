@@ -5,7 +5,7 @@ metadata:
     apps.open-cluster-management.io/git-branch: master
     apps.open-cluster-management.io/git-path: /policies
     apps.open-cluster-management.io/reconcile-rate: high
-  name: poc1
+  name: policies-subscription
   namespace: acm-poc-policies
 spec:
   channel: acm-poc-channel/acm-poc-channel
