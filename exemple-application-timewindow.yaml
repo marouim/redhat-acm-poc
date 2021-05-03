@@ -11,4 +11,12 @@ spec:
   channel: acm-poc-channel/acm-poc-channel
   placement:
     local: true
-  
+  timewindow:
+    daysofweek:
+      - Saturday
+      - Sunday
+    hours:
+      - start: '07:00PM'
+        end: '09:00PM'
+    location: America/Toronto
+    windowtype: active

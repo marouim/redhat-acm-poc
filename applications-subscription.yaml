@@ -11,4 +11,3 @@ spec:
   channel: acm-poc-channel/acm-poc-channel
   placement:
     local: true
-  
