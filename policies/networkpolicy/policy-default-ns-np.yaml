@@ -25,6 +25,7 @@ spec:
           - "default"
           - "eks-*"
           - "open-cluster-management-*"
+          include: ["*"]
         object-templates:
 
           - complianceType: mustonlyhave
