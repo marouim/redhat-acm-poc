@@ -20,11 +20,11 @@ spec:
         severity: high
         namespaceSelector:
           exclude: 
-          - kube-*
-          - gatekeeper-*
-          - default
-          - eks-*
-          - open-cluster-management-*
+          - "kube-*"
+          - "gatekeeper-*"
+          - "default"
+          - "eks-*"
+          - "open-cluster-management-*"
         object-templates:
 
           - complianceType: mustonlyhave
