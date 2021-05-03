@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-default-ns-np
+  annotations:
+    policy.open-cluster-management.io/standards: Securité infrastructure
+    policy.open-cluster-management.io/categories: Network security
+    policy.open-cluster-management.io/controls: PR.IP-1 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: policy-default-ns-np
+      spec:
+        remediationAction: inform
+        severity: high
+        namespaceSelector:
+          exclude: 
+          - kube-*
+          - gatekeeper-*
+          - default
+          - eks-*
+          - open-cluster-management-*
+        object-templates:
+
+          - complianceType: mustonlyhave
+            objectDefinition:
+    
+              apiVersion: networking.k8s.io/v1
+              kind: NetworkPolicy
+              metadata:
+                name: default-one
+              spec:
+                podSelector:
+                  matchLabels:
+                    app: xyz
+                ingress:
+                  - from:
+                      - podSelector:
+                          matchLabels:
+                            role: abc
+                    ports:
+                      - protocol: TCP
+                        port: 8000
+

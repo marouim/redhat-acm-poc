@@ -16,3 +16,7 @@ subjects:
 - name: policy-np-multiple-ns
   kind: Policy
   apiGroup: policy.open-cluster-management.io
+
+- name: policy-default-ns-np
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
