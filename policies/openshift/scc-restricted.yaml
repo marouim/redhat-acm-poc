@@ -2,13 +2,13 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: restricted-scc
-  namespace: my-policies
   annotations:
     policy.open-cluster-management.io/categories: Securité infrastructure
     policy.open-cluster-management.io/controls: Configurations
     policy.open-cluster-management.io/standards: NIST-CSF
 spec:
   disabled: false
+  remediationAction: inform
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
@@ -62,4 +62,4 @@ spec:
                   - secret
           remediationAction: inform
           severity: high
-  remediationAction: enforce
+
