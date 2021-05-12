@@ -25,6 +25,7 @@ spec:
           - "default"
           - "eks-*"
           - "open-cluster-management-*"
+          - "openshift-"
           include: ["*"]
         object-templates:
 
