@@ -1,0 +1,69 @@
+# This policy verifies the installation of the upstream version of the
+# Compliance Operator on the managed clusters.
+#
+# If set to "enforce" it'll install the operator.
+#
+# Note that OpenShift 4.6 is required.
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: scansettingbinding-rhcos4-moderate
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments, CA-7 Continuous Monitoring
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: compliance-scansettingbinding-rhcos4-moderate
+        spec:
+          remediationAction: inform 
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding 
+                metadata:
+                  name: rhcos4-moderate-binding
+                  namespace: openshift-compliance
+                profiles:
+                  - apiGroup: compliance.openshift.io/v1alpha1
+                    kind: Profile
+                    name: rhcos4-moderate
+                settingsRef:
+                  apiGroup: compliance.openshift.io/v1alpha1
+                  kind: ScanSetting
+                  name: default
+
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: scansettingbinding-rhcos4-moderate-binding
+placementRef:
+  name: scansettingbinding-rhcos4-moderate-placementrule
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: scansettingbinding-rhcos4-moderate
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: scansettingbinding-rhcos4-moderate-placementrule
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: scanbinding, operator: In, values: ["rhcos4-moderate"]}

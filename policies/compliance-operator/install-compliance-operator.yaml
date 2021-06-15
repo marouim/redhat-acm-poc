@@ -1,0 +1,106 @@
+# This policy verifies the installation of the upstream version of the
+# Compliance Operator on the managed clusters.
+#
+# If set to "enforce" it'll install the operator.
+#
+# Note that OpenShift 4.6 is required.
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-compliance-operator
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments, CA-7 Continuous Monitoring
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: compliance-operator-namespace
+        spec:
+          remediationAction: inform 
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: openshift-compliance
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: compliance-operator-operator-group
+        spec:
+          remediationAction: inform 
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1
+                kind: OperatorGroup
+                metadata:
+                  name: compliance-operator
+                  namespace: openshift-compliance
+                spec:
+                  targetNamespaces:
+                    - openshift-compliance
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: compliance-operator-subscription
+        spec:
+          remediationAction: inform 
+          severity: high
+          namespaceSelector:
+            exclude: ["kube-*"]
+            include: ["*"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: compliance-operator
+                  namespace: openshift-compliance
+                spec:
+                  channel: "4.7"
+                  installPlanApproval: Automatic
+                  name: compliance-operator
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
+
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: compliance-operator-binding
+placementRef:
+  name: compliance-operator-placementrule
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-compliance-operator
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: compliance-operator-placementrule
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: compliance-operator, operator: In, values: ["installed"]}
