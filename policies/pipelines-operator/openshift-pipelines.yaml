@@ -1,0 +1,72 @@
+# This policy verifies the installation of the upstream version of the
+# Compliance Operator on the managed clusters.
+#
+# If set to "enforce" it'll install the operator.
+#
+# Note that OpenShift 4.6 is required.
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-openshift-pipelines
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments, CA-7 Continuous Monitoring
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: openshift-pipelines-subscription
+        spec:
+          remediationAction: inform 
+          severity: high
+          namespaceSelector:
+            exclude: ["kube-*"]
+            include: ["*"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: openshift-pipelines-operator-rh
+                  namespace: openshift-operators
+                spec:
+                  channel: ocp-4.6
+                  installPlanApproval: Automatic
+                  name: openshift-pipelines-operator-rh
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
+                  startingCSV: redhat-openshift-pipelines-operator.v1.1.2
+
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: openshift-pipelines-operator-binding
+placementRef:
+  name: openshift-pipelines-operator-placementrule
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-openshift-pipelines
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: openshift-pipelines-operator-placementrule
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: vendor, operator: In, values: ["OpenShift"]}

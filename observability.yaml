@@ -1,0 +1,16 @@
+spec:
+  availabilityConfig: Basic
+  imagePullPolicy: Always
+  imagePullSecret: multiclusterhub-operator-pull-secret
+  observabilityAddonSpec:
+    enableMetrics: true
+    interval: 60
+  retentionResolution1h: 10d
+  retentionResolution5m: 6d
+  retentionResolutionRaw: 3d
+  storageConfigObject:
+    metricObjectStorage:
+      key: thanos.yaml
+      name: thanos-object-storage
+    statefulSetSize: 10Gi
+    statefulSetStorageClass: ocs-storagecluster-cephfs

@@ -1,18 +1,14 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-openshift
+  name: binding-acm-poc-np-default
 
 placementRef:
-  name: placement-openshift
+  name: placement-acm-poc-np
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 
 subjects:
-- name: restricted-scc
-  kind: Policy
-  apiGroup: policy.open-cluster-management.io
-
 - name: policy-default-demo-ns-np
   kind: Policy
   apiGroup: policy.open-cluster-management.io
